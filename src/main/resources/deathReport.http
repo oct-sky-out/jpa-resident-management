@@ -1,0 +1,25 @@
+POST http://localhost:8080/residents/8/death
+Content-Type: application/json; charset=utf-8
+
+{
+  "birthDeathTypeCode": "사망",
+  "reportSerialNumber": 6,
+  "reportDate": "2022-05-29",
+  "deathReportQualificationsCode": "모",
+  "email": "abc@nhn.com",
+  "phoneNumber": "010-1122-3344"
+}
+
+###
+PUT http://localhost:8080/residents/8/death/6
+Content-Type: application/json; charset=utf-8
+
+{
+  "reportDate": "2022-05-29",
+  "deathReportQualificationsCode": "모",
+  "email": "abc1234@nhncloud.com",
+  "phoneNumber": "010-1234-6566"
+}
+
+###
+DELETE http://localhost:8080/residents/8/death/6

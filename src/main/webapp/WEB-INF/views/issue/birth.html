@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <title>birth issue</title>
+</head>
+
+<body class="w-screen">
+<div class="grid grid-col-10 w-1/2 ml-10">
+  <div class="border p-3 text-center col-span-10 border bg-gray-300">
+    <div class="text-4xl text-center">출생신고서</div>
+    <div class="flex justify-center">
+      신고일 : (<span th:text="${#temporals.format(birthIssue.getReportDate(), 'yyyy년 MM월 dd일')}"></span>)
+    </div>
+  </div>
+  <div class="p-5 text-center col-span-1 row-span-4 border bg-gray-200 flex justify-center items-center">
+    <span>출생자</span>
+  </div>
+  <div class="p-5 text-center col-span-2 border bg-gray-200">성명</div>
+  <div class="p-5 text-center col-span-3 border" th:text="${birthIssue.getName()}"></div>
+  <div class="p-5 text-center col-span-2 border bg-gray-200" >성별</div>
+  <div class="p-5 text-center col-span-2 border" th:text="${birthIssue.getGenderCode()}">남</div>
+
+  <div class="p-5 text-center col-span-2 border bg-gray-200">출생일시</div>
+  <div class="p-5 text-center col-span-7 border" th:text="${#temporals.format(birthIssue.getBirthDate(), 'yyyy년 MM월 dd일 HH:mm:ss')}"></div>
+  <div class="p-5 text-center col-span-2 border bg-gray-200">출생장소</div>
+  <div class="p-5 text-center col-span-7 border" th:text="${birthIssue.getPlaceCode()}"></div>
+
+  <div class="p-5 text-center col-span-2 border bg-gray-200">등록기준지(본적)</div>
+  <div class="p-5 text-center col-span-7 border" th:text="${birthIssue.getBaseAddress()}"></div>
+
+
+  <div class="p-5 text-center col-span-1 row-span-2 border bg-gray-200 flex justify-center items-center">
+    <span>부모</span>
+  </div>
+  <th:block th:each="parent : ${parents}">
+    <div class="p-5 text-center col-span-1 border bg-gray-200" th:text="${parent.getRelationshipCode()}"></div>
+    <div class="p-5 text-center col-span-1 border bg-gray-200">성명</div>
+    <div class="p-5 text-center col-span-3 border"  th:text="${parent.getName()}"></div>
+    <div class="p-5 text-center col-span-2 border bg-gray-200">주민등록번호</div>
+    <div class="p-5 text-center col-span-2 border"  th:text="${parent.getRegistrationNumber()}"></div>
+  </th:block>
+
+  <div class="p-5 text-center col-span-1 row-span-3 border bg-gray-200 flex justify-center items-center">
+    <span>신고인</span>
+  </div>
+  <div class="p-5 text-center col-span-2 border bg-gray-200">성명</div>
+  <div class="p-5 text-center col-span-3 border" th:text="${birthIssue.getReporterName()}"></div>
+  <div class="p-5 text-center col-span-2 border bg-gray-200">주민등록번호</div>
+  <div class="p-5 text-center col-span-2 border" th:text="${#strings.substring(birthIssue.getReporterRegistrationNumber(), 0, 6).concat('-XXXXXXX')}"></div>
+  <div class="p-5 text-center col-span-2 border bg-gray-200">자격</div>
+  <div class="p-5 text-center col-span-7 border" th:text="${birthIssue.getQualificationCode()}"></div>
+
+  <div class="p-5 text-center col-span-2 border bg-gray-200">이메일</div>
+  <div class="p-5 text-center col-span-3 border" th:text="${birthIssue.getEmail()}"></div>
+  <div class="p-5 text-center col-span-2 border bg-gray-200">전화번호</div>
+  <div class="p-5 text-center col-span-2 border" th:text="${birthIssue.getPhoneNumber()}"></div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title th:text="${title.getCode()}"></title>
+</head>
+<body class="w-screen h-screen">
+<div class="grid grid-col-6 w-1/2 ml-10">
+    <div class="border p-3 text-center col-span-6 bg-gray-300">
+        <h1 class="text-4xl text-center" th:text="${title.getCode()}"></h1>
+        <div class="flex justify-center items-center space-x-3">
+            <span th:text="'발급일 : ' + ${title.getIssueDate()}"></span>
+            <span th:text="'증명서확인번호 : ' + ${#strings.substring(title.getConfirmationNumber(), 0, 8) + '-' + #strings.substring(title.getConfirmationNumber(), 8)}"></span>
+        </div>
+    </div>
+    <div class="border p-3 text-center col-span-2 bg-gray-200">
+        세대주 성명
+    </div>
+    <div class="border p-3 text-center col-span-1" th:text="${household.getName()}"></div>
+    <div class="border p-3 text-center col-span-1 bg-gray-200">
+        세대구성 사유및일자
+    </div>
+    <div class="border p-3 text-center col-span-2" th:text="${household.getCompositionReasonCode()} + '  ' + ${#temporals.format(household.getCompositionDate(), 'yyyy-MM-dd')}"></div>
+    <div class="border p-3 text-center col-span-4 bg-gray-200">
+        주소
+    </div>
+    <div class="border p-3 text-center col-span-2 bg-gray-200">
+        신고일
+    </div>
+    <th:block th:each="address : ${houseMovementAddresses}">
+        <div class="border p-3 text-center col-span-1" th:text="${address.getLastAddress() eq 'Y'} ? '현주소' : '주소'"></div>
+        <div class="border p-3 text-center col-span-3" th:text="${address.getAddress()}"></div>
+        <div class="border p-3 text-center col-span-2" th:text="${address.getReportDate()}"></div>
+    </th:block>
+    <div class="border p-3 text-center col-span-1 bg-gray-200">세대주 관계</div>
+    <div class="border p-3 text-center col-span-1 bg-gray-200">성명</div>
+    <div class="border p-3 text-center col-span-2 bg-gray-200">주민등록번호</div>
+    <div class="border p-3 text-center col-span-1 bg-gray-200">신고일</div>
+    <div class="border p-3 text-center col-span-1 bg-gray-200">변동사유</div>
+    <th:block th:each="resident : ${householdCompositions}">
+        <div class="border p-3 text-center col-span-1" th:text="${resident.getCode()}"></div>
+        <div class="border p-3 text-center col-span-1" th:text="${resident.getName()}"></div>
+        <div class="border p-3 text-center col-span-2" th:text="${resident.getRegistrationNumber()}"></div>
+        <div class="border p-3 text-center col-span-1" th:text="${#temporals.format(resident.getReportDate(), 'yyyy-MM-dd')}"></div>
+        <div class="border p-3 text-center col-span-1" th:text="${resident.getChangeReasonCode()}"></div>
+    </th:block>
+</div>
+</body>
+</html>

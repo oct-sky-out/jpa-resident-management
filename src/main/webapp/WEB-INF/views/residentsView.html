@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>주민목록</title>
+</head>
+<body class="w-screen">
+<h1 class="text-3xl flex justify-center mb-10">주민목록</h1>
+<div class="w-2/3 mx-auto my-0">
+    <ul class="flex justify-around text-center">
+        <li class="text-xl text-cyan-700 w-1/3">주민 코드</li>
+        <li class="text-xl text-cyan-700 w-1/3">이름</li>
+        <li class="text-xl text-cyan-700 w-1/3">성별</li>
+        <li class="text-xl text-cyan-700 w-1/3">삭제버튼</li>
+    </ul>
+    <ul class="flex justify-around" th:each="resident : ${residents}">
+        <li class="text-lg">
+            <span th:text="${resident.getSerialNumber()}"></span>
+            <div>
+                <div>
+                    <form action="/certificate" method="post">
+                        <input type="hidden" name="serialNumber" th:value="${resident.getSerialNumber()}">
+                        <input type="hidden" name="typeCode" value="가족관계증명서">
+                        <input type="submit" value="가족관계증명서발급">
+                    </form>
+                </div>
+                <div>
+                    <form action="/certificate" method="post">
+                        <input type="hidden" name="serialNumber" th:value="${resident.getSerialNumber()}">
+                        <input type="hidden" name="typeCode" value="주민등록등본">
+                        <input type="submit" value="주민등록등본발급">
+                    </form>
+                </div>
+                <div th:if="${resident.getBirthIssue()}">
+                    <form action="/certificate" method="post">
+                        <input type="hidden" name="serialNumber" th:value="${resident.getSerialNumber()}">
+                        <input type="hidden" name="typeCode" value="출생신고서">
+                        <input type="submit" value="출생신고서">
+                    </form>
+                </div>
+                <div th:if="${resident.getDeathIssue()}">
+                    <form action="/certificate" method="post">
+                        <input type="hidden" name="serialNumber" th:value="${resident.getSerialNumber()}">
+                        <input type="hidden" name="typeCode" value="사망신고서">
+                        <input type="submit" value="사망신고서">
+                    </form>
+                </div>
+            </div>
+        </li>
+        <li class="text-lg" th:text="${resident.getName()}"></li>
+        <li class="text-lg" th:text="${resident.getGenderCode()}"></li>
+        <li class="text-lg"><a th:href="@{/residents/remove(serialNumber=${resident.getSerialNumber()})}">삭제</a></li>
+    </ul>
+    <div><a href="/certifications?page=0&size=5">증명서 발급 목록보기</a></div>
+    <a th:if="${hasPrevious}" th:href="@{/residents(page=${currentPage - 1},size=5)}" class="mt-10 absolute left-1/3">이전</a>
+    <a th:if="${hasNext}" th:href="@{/residents(page=${currentPage + 1},size=5)}" class="mt-10 absolute right-1/3">다음</a>
+</div>
+</body>
+</html>

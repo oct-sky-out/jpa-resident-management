@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <title th:text="${title.getCode()}"></title>
+</head>
+<body class="w-screen h-screen">
+<div class="grid grid-col-5 w-1/2 ml-10">
+    <div class="border p-3 text-center col-span-5 border bg-gray-300">
+        <h1 class="text-4xl text-center" th:text="${title.getCode()}"></h1>
+        <div class="flex justify-center space-x-3 mt-5">
+            <span th:text="'발급일 : ' + ${title.getIssueDate()}"></span>
+            <span th:text="'증명서확인번호 : ' + ${#strings.substring(title.getConfirmationNumber(), 0, 8) + '-' + #strings.substring(title.getConfirmationNumber(), 8)}"></span>
+        </div>
+    </div>
+    <div class="p-5 text-center col-span-2 border bg-gray-200">등록기준지(본적)</div>
+    <div class="p-5 text-center col-span-3 border" th:text="${title.getBaseAddress()}"></div>
+
+    <div class="p-5 text-center col-span-1 border bg-gray-200">구분</div>
+    <div class="p-5 text-center col-span-1 border bg-gray-200">성명</div>
+    <div class="p-5 text-center col-span-1 border bg-gray-200">출생년월일</div>
+    <div class="p-5 text-center col-span-1 border bg-gray-200">주민등록번호</div>
+    <div class="p-5 text-center col-span-1 border bg-gray-200">성별</div>
+
+    <th:block th:each="relation : ${relations}">
+        <div class="p-5 text-center col-span-1 border" th:text="${relation.getRelationshipCode()}"></div>
+        <div class="p-5 text-center col-span-1 border" th:text="${relation.getName()}"></div>
+        <div class="p-5 text-center col-span-1 border" th:text="${#temporals.format(relation.getBirthDate(), 'yyyy-MM-dd')}"></div>
+        <div class="p-5 text-center col-span-1 border" th:text="${relation.getRegistrationNumber()}"></div>
+        <div class="p-5 text-center col-span-1 border" th:text="${relation.getGenderCode()}"></div>
+    </th:block>
+    </div>
+</div>
+</body>
+</html>

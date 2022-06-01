@@ -1,0 +1,23 @@
+POST http://localhost:8080/household
+Content-Type: application/json; charset=utf-8
+
+{
+  "householdSerialNumber": 2,
+  "residentSerialNumber": 7,
+  "compositionDate": "2022-05-29",
+  "compositionReasonCode": "세대분리",
+  "currentHouseMovementAddress": "경상남도 김해시 내외 중앙로 55 5층"
+}
+
+###
+PUT http://localhost:8080/household/2
+Content-Type: application/json; charset=utf-8
+
+{
+  "compositionDate": "2022-06-01",
+  "compositionReasonCode": "세대분리",
+  "currentHouseMovementAddress": "경상남도 김해시 내외 중앙로 55 5층"
+}
+
+###
+DELETE http://localhost:8080/household/2

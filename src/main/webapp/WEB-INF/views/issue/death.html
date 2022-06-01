@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <title>사망신고서</title>
+</head>
+
+<body class="w-screen">
+<div class="grid grid-col-10 w-1/2 ml-10">
+    <div class="border p-3 text-center col-span-10 border bg-gray-300">
+        <div class="text-4xl text-center">사망신고서</div>
+        <div class="flex justify-center">
+            신고일 : (<span th:text="${#temporals.format(deathIssue.getReportDate(), 'yyyy년 MM월 dd일')}"></span>)
+        </div>
+    </div>
+    <div class="p-5 text-center col-span-1 row-span-4 border bg-gray-200 flex justify-center items-center">
+        <span>사망자</span>
+    </div>
+    <div class="p-5 text-center col-span-2 border bg-gray-200" >성명</div>
+    <div class="p-5 text-center col-span-3 border" th:text="${deathIssue.getName()}">남길동</div>
+    <div class="p-5 text-center col-span-2 border bg-gray-200">주민등록번호</div>
+    <div class="p-5 text-center col-span-2 border" th:text="${deathIssue.getRegistrationNumber()}"></div>
+
+    <div class="p-5 text-center col-span-2 border bg-gray-200">사망일시</div>
+    <div class="p-5 text-center col-span-7 border" th:text="${#temporals.format(deathIssue.getDeathTime(), 'yyyy년 MM월 dd일 HH:mm:ss')}"></div>
+    <div class="p-5 text-center col-span-1 row-span-2 border bg-gray-200 flex justify-center items-center">
+        <span>사망장소</span>
+    </div>
+    <div class="p-5 text-center col-span-1 border bg-gray-200">구분</div>
+    <div class="p-5 text-center col-span-7 border" th:text="${deathIssue.getPlaceCode()}"></div>
+    <div class="p-5 text-center col-span-1 border bg-gray-200">주소</div>
+    <div class="p-5 text-center col-span-7 border" th:text="${deathIssue.getAddress()}"></div>
+
+    <div class="p-5 text-center col-span-1 row-span-3 border bg-gray-200 flex justify-center items-center">
+        <span>신고인</span>
+    </div>
+    <div class="p-5 text-center col-span-2 border bg-gray-200">성명</div>
+    <div class="p-5 text-center col-span-3 border" th:text="${deathIssue.getReporterName()}"></div>
+    <div class="p-5 text-center col-span-2 border bg-gray-200">주민등록번호</div>
+    <div class="p-5 text-center col-span-2 border" th:text="${deathIssue.getReporterRegistrationNumber()}"></div>
+
+    <div class="p-5 text-center col-span-2 border bg-gray-200">자격</div>
+    <div class="p-5 text-center col-span-7 border" th:text="${deathIssue.getQualificationCode()}">부</div>
+
+    <div class="p-5 text-center col-span-2 border bg-gray-200">이메일</div>
+    <div class="p-5 text-center col-span-3 border" th:text="${deathIssue.getEmail()}"></div>
+    <div class="p-5 text-center col-span-2 border bg-gray-200">전화번호</div>
+    <div class="p-5 text-center col-span-2 border" th:text="${deathIssue.getPhoneNumber()}"></div>
+</div>
+</body>
+
+</html>

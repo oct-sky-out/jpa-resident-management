@@ -1,0 +1,76 @@
+###
+POST http://localhost:8080/residents/8/relationship
+Content-Type: application/json; charset=utf-8
+
+{
+  "familySerialNumber" : 6,
+  "relationShip" : "mother"
+}
+
+### HTTP/1.1 201
+# Content-Type: application/json
+# Transfer-Encoding: chunked
+# Date: Sat, 28 May 2022 18:01:26 GMT
+# Keep-Alive: timeout=20
+# Connection: keep-alive
+#
+# {
+#   "status": "OK",
+#   "result": {
+#     "familySerialNumber": 6,
+#     "relationShip": "mother"
+#   }
+# }
+
+
+PUT http://localhost:8080/residents/8/relationship/6
+Content-Type: application/json; charset=utf-8
+
+{
+  "relationShip" : "spouse"
+}
+
+### http://localhost:8080/residents/8/relationship/6
+#
+#HTTP/1.1 200
+#Content-Type: application/json
+#Transfer-Encoding: chunked
+#Date: Sat, 28 May 2022 18:28:01 GMT
+#Keep-Alive: timeout=20
+#Connection: keep-alive
+#
+#{
+#  "status": "OK",
+#  "result": {
+#    "pk": {
+#      "baseSerialNumber": 8,
+#      "familySerialNumber": 6
+#    },
+#    "code": "배우자"
+#  }
+#}
+
+
+###
+DELETE http://localhost:8080/residents/8/relationship/6
+
+### http://localhost:8080/residents/8/relationship/6
+#
+#HTTP/1.1 200
+#Content-Type: application/json
+#Transfer-Encoding: chunked
+#Date: Sat, 28 May 2022 18:28:08 GMT
+#Keep-Alive: timeout=20
+#Connection: keep-alive
+#
+#{
+#  "status": "OK",
+#  "result": {
+#    "pk": {
+#      "baseSerialNumber": 8,
+#      "familySerialNumber": 6
+#    },
+#    "code": "배우자"
+#  }
+#}
+
