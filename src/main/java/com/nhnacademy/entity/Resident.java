@@ -1,6 +1,7 @@
 package com.nhnacademy.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -55,6 +56,7 @@ public class Resident {
     @Column(name = "death_place_address", length = 500)
     private String deathPlaceAddress;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "resident",
         fetch = FetchType.LAZY,
         cascade = CascadeType.PERSIST,
@@ -62,6 +64,7 @@ public class Resident {
     )
     private List<FamilyRelationship> familyRelationship;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "resident",
         fetch = FetchType.LAZY,
         cascade = CascadeType.PERSIST,
@@ -69,6 +72,7 @@ public class Resident {
     )
     private List<BirthDeathReportResident> birthDeathReportResident;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "resident",
         fetch = FetchType.LAZY,
         cascade = CascadeType.PERSIST,
@@ -76,6 +80,7 @@ public class Resident {
     )
     private List<CertificateIssue> certificateIssues;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "resident",
         fetch = FetchType.LAZY,
         cascade = CascadeType.PERSIST,
@@ -83,6 +88,7 @@ public class Resident {
     )
     private List<Household> households;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "resident",
         fetch = FetchType.LAZY,
         cascade = CascadeType.PERSIST,

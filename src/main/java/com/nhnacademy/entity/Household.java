@@ -44,12 +44,14 @@ public class Household {
     @Column(name = "current_house_movement_address", length = 500)
     private String currentHouseMovementAddress;
 
+    @JsonIgnore
     @OneToMany( mappedBy = "household",
         fetch = FetchType.LAZY,
         cascade = CascadeType.ALL
     )
     private List<HouseholdMovementAddress> movementAddresses;
 
+    @JsonIgnore
     @OneToMany( mappedBy = "household",
         fetch = FetchType.LAZY,
         cascade = CascadeType.ALL
