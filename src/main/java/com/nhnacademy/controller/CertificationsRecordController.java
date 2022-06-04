@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("certifications")
+@RequestMapping("/certifications")
 public class CertificationsRecordController {
     private final CertificationRecordService certificationRecordService;
 

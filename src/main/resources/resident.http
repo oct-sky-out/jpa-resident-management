@@ -2,8 +2,8 @@ POST http://localhost:8080/residents
 Content-Type: application/json; charset=UTF-8
 
 {
-  "serialNumber": 8,
-  "name": "김땡땡",
+  "serialNumber": 9,
+  "name": "김땡크",
   "baseAddress": "경남 김해시 xxx읍 xxx리 1234-1234",
   "birthDate" : "1999-10-10 17:12:44",
   "birthPlaceCode" : "병원",
@@ -12,11 +12,11 @@ Content-Type: application/json; charset=UTF-8
 }
 
 ###
-PUT http://localhost:8080/residents/8
+PUT http://localhost:8080/residents/9
 Content-Type: application/json; charset=UTF-8
 
 {
-"name": "김땡땡떙",
+"name": "김땡땡크",
 "baseAddress": "경남 김해시 xxx읍 xxx리 1234-1234",
 "birthDate" : "1999-10-10 17:12:44",
 "birthPlaceCode" : "병원",
