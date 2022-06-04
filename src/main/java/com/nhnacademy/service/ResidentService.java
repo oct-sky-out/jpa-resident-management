@@ -7,7 +7,6 @@ import com.nhnacademy.dto.resident.ResidentViewDto;
 import com.nhnacademy.entity.Resident;
 import com.nhnacademy.exceptions.ExceptionTemplate;
 import com.nhnacademy.exceptions.RemoveFailureException;
-import com.nhnacademy.repository.household.HouseholdRepository;
 import com.nhnacademy.repository.resident.ResidentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,12 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ResidentService {
     private final ResidentRepository residentRepository;
-    private final HouseholdRepository householdRepository;
-
-    public ResidentService(ResidentRepository residentRepository,
-                           HouseholdRepository householdRepository){
+    public ResidentService(ResidentRepository residentRepository){
         this.residentRepository = residentRepository;
-        this.householdRepository = householdRepository;
     }
 
     @Transactional
@@ -69,6 +64,5 @@ public class ResidentService {
             throw new RemoveFailureException("남은 가족정보가 존재합니다.");
         }
         residentRepository.deleteById(serialNumber);
-//        householdRepository.deleteHouseholdBy(serialNumber);
     }
 }

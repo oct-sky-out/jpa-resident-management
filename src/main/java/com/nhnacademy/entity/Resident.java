@@ -56,6 +56,15 @@ public class Resident {
     @Column(name = "death_place_address", length = 500)
     private String deathPlaceAddress;
 
+    @Column(name = "user_id", length = 50, nullable = false)
+    private String userId;
+
+    @Column(name = "password", length = 100, nullable = false)
+    private String password;
+
+    @Column(name = "email", length = 100, nullable = false)
+    private String email;
+
     @JsonIgnore
     @OneToMany(mappedBy = "resident",
         fetch = FetchType.LAZY,

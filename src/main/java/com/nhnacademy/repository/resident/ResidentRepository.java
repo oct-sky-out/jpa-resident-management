@@ -5,8 +5,10 @@ import com.nhnacademy.entity.Resident;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface ResidentRepository extends JpaRepository<Resident, Long>, ResidentRepositoryCustom{
     @Override
@@ -19,4 +21,8 @@ public interface ResidentRepository extends JpaRepository<Resident, Long>, Resid
         "    where r.serialNumber = :serialNumber")
     Long countFamilyNumberBySerialNumber(@Param("serialNumber") Long serialNumber);
 
+    @Transactional
+    @Modifying
+    @Query("update Resident r set r.password=:password where r.serialNumber=:serialNumber")
+    void modifyResidentPassword(@Param("serialNumber") Long serialNumber, @Param("password")String password);
 }

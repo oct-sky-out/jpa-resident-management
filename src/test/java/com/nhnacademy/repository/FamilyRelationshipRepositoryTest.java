@@ -35,13 +35,13 @@ class FamilyRelationshipRepositoryTest {
 
     @Test
     void register() {
-        Resident baseResident = residentRepository.findById(8L).get();
+        Resident baseResident = residentRepository.findById(3L).get();
 
         FamilyRelationship familyRelationship = FamilyRelationship.builder()
             .resident(baseResident)
             .pk(new FamilyRelationship.Pk(
                 baseResident.getSerialNumber(),
-                5L))
+                2L))
             .code("모")
             .build();
 

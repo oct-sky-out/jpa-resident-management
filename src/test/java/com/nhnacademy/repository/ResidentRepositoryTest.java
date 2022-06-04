@@ -43,6 +43,9 @@ class ResidentRepositoryTest {
             .birthPlaceCode("경남")
             .registrationNumber("12345")
             .genderCode("남")
+            .userId("hello")
+            .password("12345")
+            .email("hello@example.com")
             .build();
 
         residentRepository.saveAndFlush(resident);
@@ -66,7 +69,7 @@ class ResidentRepositoryTest {
     @Test
     @Transactional
     void removeOrphanEntitiesTest() {
-        residentRepository.deleteById(8L);
+        residentRepository.deleteById(1L);
     }
 }
 

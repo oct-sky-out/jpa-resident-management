@@ -34,11 +34,11 @@ class BirthReportTest {
 
     @Test
     void register() {
-        Resident resident = residentRepository.findById(8L).get();
+        Resident resident = residentRepository.findById(3L).get();
 
         BirthDeathReportResident.Pk pk = new BirthDeathReportResident.Pk(
             "출생",
-            6L,
+            2L,
             resident.getSerialNumber()
         );
         BirthDeathReportResident birthDeathReportResident = BirthDeathReportResident.builder()
@@ -53,7 +53,7 @@ class BirthReportTest {
         BirthDeathReportResident savedBirthDeathReportResident =
             birthDeathReportResidentRepository.saveAndFlush(birthDeathReportResident);
 
-        assertThat(savedBirthDeathReportResident.getPk().getReportSerialNumber()).isEqualTo(6);
-        assertThat(savedBirthDeathReportResident.getPk().getSerialNumber()).isEqualTo(8);
+        assertThat(savedBirthDeathReportResident.getPk().getReportSerialNumber()).isEqualTo(2);
+        assertThat(savedBirthDeathReportResident.getPk().getSerialNumber()).isEqualTo(3);
     }
 }

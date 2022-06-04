@@ -10,16 +10,16 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
+@EnableRedisHttpSession
 @Configuration
-@EnableRedisRepositories
 @PropertySource("classpath:redis.properties")
 public class RedisConfig implements BeanClassLoaderAware {
     @Value("${redis.host}")
@@ -32,7 +32,7 @@ public class RedisConfig implements BeanClassLoaderAware {
     private String password;
 
     @Value("${redis.database}")
-    private int databse;
+    private int database;
 
     private ClassLoader classLoader;
 
@@ -42,21 +42,21 @@ public class RedisConfig implements BeanClassLoaderAware {
         configuration.setHostName(host);
         configuration.setPort(port);
         configuration.setPassword(password);
-        configuration.setDatabase(databse);
+        configuration.setDatabase(database);
 
         return new LettuceConnectionFactory(configuration);
     }
 
     @Bean
     public RedisTemplate<?, ?> redisTemplate() {
-        RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory());
-        template.setHashKeySerializer(new StringRedisSerializer());
-        template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        RedisTemplate<byte[], byte[]> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
 
-        return template;
+        return redisTemplate;
     }
 
     @Bean
@@ -70,7 +70,7 @@ public class RedisConfig implements BeanClassLoaderAware {
     }
 
     @Bean
-    public RedisSerializer<Object> springSessionDefaultRedisSerializer(){
+    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
         return new GenericJackson2JsonRedisSerializer(objectMapper());
     }
 

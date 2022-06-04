@@ -6,15 +6,6 @@
             </pattern>
         </encoder>
     </appender>
-
-    <logger name="org.hibernate.SQL" level="debug" additivity="false">
-        <appender-ref ref="console" />
-    </logger>
-
-    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" additivity="false">
-        <appender-ref ref="console" />
-    </logger>
-
     <root>
         <level value="error"/>
         <appender-ref ref="console" />
