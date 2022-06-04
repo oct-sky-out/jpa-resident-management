@@ -2,6 +2,8 @@ package com.nhnacademy.controller;
 
 import com.nhnacademy.dto.resident.ResidentViewDto;
 import com.nhnacademy.service.ResidentService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,10 @@ public class ResidentViewController {
     }
 
     @GetMapping
-    public String showResidents(Pageable pageable, Model model){
-        Page<ResidentViewDto> residents = residentService.searchAllResidentToPageable(pageable);
+    public String showResidents(Model model, HttpServletRequest request, Pageable pageable){
+        HttpSession session = request.getSession(false);
+        String userId = (String) session.getAttribute("userId");
+        Page<ResidentViewDto> residents = residentService.searchResidentAndMyHouseholders(pageable, userId);
         model.addAttribute("residents", residents.getContent());
         model.addAttribute("hasNext", residents.hasNext());
         model.addAttribute("hasPrevious", residents.hasPrevious());

@@ -1,8 +1,11 @@
 package com.nhnacademy.security;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,8 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 
 @Slf4j
 public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+    private static final Long THREE_DAYS_AT_SECONDS = 259200L;
+
     private final RedisTemplate<String, String> redisTemplate;
 
     public SuccessHandler(RedisTemplate<String, String> redisTemplate){
@@ -27,18 +32,23 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
                                         Authentication authentication)
         throws ServletException, IOException {
         super.onAuthenticationSuccess(request, response, authentication);
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        log.error(userDetails.getUsername());
+        log.error(new ArrayList<>(userDetails.getAuthorities()).toString());
+
         List<GrantedAuthority> authorities = new ArrayList<>(userDetails.getAuthorities());
 
         String username = userDetails.getUsername();
         String authority = authorities.get(0).getAuthority();
-
         HttpSession session = request.getSession(false);
 
-        redisTemplate.opsForHash().put(session.getId(), "username", username);
-        redisTemplate.opsForHash().put(session.getId(), "authority", authority);
+        session.setMaxInactiveInterval(THREE_DAYS_AT_SECONDS.intValue());
 
-        session.setAttribute("username", username);
+        redisTemplate.opsForHash().put(session.getId(), "userId", username);
+        redisTemplate.opsForHash().put(session.getId(), "authority", authority);
+        redisTemplate.boundHashOps(session.getId()).expire(THREE_DAYS_AT_SECONDS, TimeUnit.SECONDS);
+
+        session.setAttribute("userId", username);
         session.setAttribute("authority", authority);
     }
 }

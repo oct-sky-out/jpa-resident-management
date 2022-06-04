@@ -57,6 +57,10 @@ public class ResidentService {
         return residentRepository.getAllResidentByPage(pageable);
     }
 
+    public Page<ResidentViewDto> searchResidentAndMyHouseholders(Pageable pageable, String userId) {
+        return residentRepository.getResidentAndMyHouseholders(pageable, userId);
+    }
+
     @Transactional
     public void removeResident(Long serialNumber) {
         Long count = residentRepository.countFamilyNumberBySerialNumber(serialNumber);

@@ -13,4 +13,6 @@ public interface ResidentRepositoryCustom {
     Page<ResidentViewDto> getAllResidentByPage(Pageable pageable);
 
     Optional<ResidentUserDetails> findUserDetailsByUsername(String username);
+
+    Page<ResidentViewDto> getResidentAndMyHouseholders(Pageable pageable, String userId);
 }

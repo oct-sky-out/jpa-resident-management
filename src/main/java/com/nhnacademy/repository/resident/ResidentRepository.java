@@ -25,4 +25,6 @@ public interface ResidentRepository extends JpaRepository<Resident, Long>, Resid
     @Modifying
     @Query("update Resident r set r.password=:password where r.serialNumber=:serialNumber")
     void modifyResidentPassword(@Param("serialNumber") Long serialNumber, @Param("password")String password);
+
+    Page<ResidentViewDto> getResidentAndMyHouseholders(Pageable pageable, String userId);
 }
