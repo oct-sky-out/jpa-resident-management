@@ -49,6 +49,7 @@ public class SecureConfig {
                 .clearAuthentication(true)
                 .deleteCookies("session")
                 .invalidateHttpSession(true)
+                .logoutSuccessUrl("/")
             .and()
                 .csrf().disable() // REST API를 위해서 일부러 끔.
                 .sessionManagement()

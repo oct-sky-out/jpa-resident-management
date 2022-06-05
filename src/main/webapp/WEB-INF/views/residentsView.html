@@ -55,6 +55,7 @@
         <li class="text-lg"><a th:href="@{/residents/remove(serialNumber=${resident.getSerialNumber()})}">삭제</a></li>
     </ul>
     <div><a href="/certifications?page=0&size=5">증명서 발급 목록보기</a></div>
+    <div><a href="/auth/logout">로그아웃</a></div>
     <a th:if="${hasPrevious}" th:href="@{/residents(page=${currentPage - 1},size=5)}" class="mt-10 absolute left-1/3">이전</a>
     <a th:if="${hasNext}" th:href="@{/residents(page=${currentPage + 1},size=5)}" class="mt-10 absolute right-1/3">다음</a>
 </div>
