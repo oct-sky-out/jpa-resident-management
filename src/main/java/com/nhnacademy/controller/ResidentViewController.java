@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,8 @@ public class ResidentViewController {
         model.addAttribute("hasNext", residents.hasNext());
         model.addAttribute("hasPrevious", residents.hasPrevious());
         model.addAttribute("currentPage", residents.getNumber());
+
+        SecurityContextHolder.getContext().getAuthentication();
         return "residentsView";
     }
 
