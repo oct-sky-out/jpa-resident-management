@@ -44,7 +44,8 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
         redisTemplate.opsForHash().put(session.getId(), "authority", authority);
         redisTemplate.boundHashOps(session.getId()).expire(THREE_DAYS_AT_SECONDS, TimeUnit.SECONDS);
 
-        session.setMaxInactiveInterval(THREE_DAYS_AT_SECONDS.intValue());
+        // spring session 기본 설정이 5분 값이므로 5분을 뺀다.
+        session.setMaxInactiveInterval(THREE_DAYS_AT_SECONDS.intValue() - 300);
         session.setAttribute("userId", username);
         session.setAttribute("authority", authority);
     }
