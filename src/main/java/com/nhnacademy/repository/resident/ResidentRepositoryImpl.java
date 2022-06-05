@@ -8,6 +8,7 @@ import com.nhnacademy.entity.QHouseholdCompositionResident;
 import com.nhnacademy.entity.QResident;
 import com.nhnacademy.entity.Resident;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -64,23 +65,46 @@ public class ResidentRepositoryImpl extends QuerydslRepositorySupport
 
     @Override
     public Page<ResidentViewDto> getResidentAndMyHouseholders(Pageable pageable, String userId) {
-        List<ResidentViewDto> query = from(householdCompositionResident)
+        List<ResidentViewDto> query = from(resident)
+            .innerJoin(householdCompositionResident)
+            .on(householdCompositionResident.pk.residentSerialNumber.eq(resident.serialNumber))
             .join(householdCompositionResident.household, household)
-            .join(household.resident, resident)
             .leftJoin(birthDeathReportResident)
             .on(birthDeathReportResident.pk.serialNumber.eq(resident.serialNumber))
-            .where(resident.userId.eq(userId))
+            .where(household.serialNumber.eq(
+                        JPAExpressions
+                            .select(householdCompositionResident.pk.householdSerialNumber)
+                            .from(householdCompositionResident)
+                            .join(householdCompositionResident.resident, resident)
+                            .where(resident.userId.eq(userId))
+            ))
             .select(Projections.constructor(ResidentViewDto.class,
-                householdCompositionResident.resident.serialNumber,
-                householdCompositionResident.resident.name,
-                householdCompositionResident.resident.genderCode,
+                resident.serialNumber,
+                resident.name,
+                resident.genderCode,
                 birthDeathReportResident.pk.birthDeathTypeCode.isNotNull(),
-                householdCompositionResident.resident.deathDate.isNotNull()
-                ))
+                resident.deathDate.isNotNull()
+            ))
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
             .fetch();
 
         return PageableExecutionUtils.getPage(query, pageable, () -> query.size() + 1);
+    }
+
+    @Override
+    public Optional<ResidentUserDetails> findResidentByEmail(String email) {
+
+        return Optional.ofNullable(
+            from(resident)
+                .where(resident.email.eq(email))
+                .select(
+                    Projections.constructor(ResidentUserDetails.class,
+                        resident.serialNumber,
+                        resident.name,
+                        resident.userId,
+                        resident.password,
+                        resident.email))
+                .fetchOne());
     }
 }

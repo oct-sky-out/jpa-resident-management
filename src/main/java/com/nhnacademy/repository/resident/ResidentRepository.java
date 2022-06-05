@@ -1,7 +1,9 @@
 package com.nhnacademy.repository.resident;
 
+import com.nhnacademy.dto.resident.ResidentUserDetails;
 import com.nhnacademy.dto.resident.ResidentViewDto;
 import com.nhnacademy.entity.Resident;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,4 +29,6 @@ public interface ResidentRepository extends JpaRepository<Resident, Long>, Resid
     void modifyResidentPassword(@Param("serialNumber") Long serialNumber, @Param("password")String password);
 
     Page<ResidentViewDto> getResidentAndMyHouseholders(Pageable pageable, String userId);
+
+    Optional<ResidentUserDetails> findResidentByEmail(String email);
 }
