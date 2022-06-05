@@ -15,6 +15,16 @@
         <appender-ref ref="console" />
     </logger>
 
+    <logger name="com.nhnacademy.controller" level="debug" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+    <logger name="com.nhnacademy.service" level="debug" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+    <logger name="com.nhnacademy.repository" level="debug" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
     <root>
         <level value="error"/>
         <appender-ref ref="console" />

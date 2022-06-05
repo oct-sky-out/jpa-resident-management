@@ -1,8 +1,6 @@
 package com.nhnacademy.security;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -42,12 +40,11 @@ public class SuccessHandler extends SavedRequestAwareAuthenticationSuccessHandle
         String authority = authorities.get(0).getAuthority();
         HttpSession session = request.getSession(false);
 
-        session.setMaxInactiveInterval(THREE_DAYS_AT_SECONDS.intValue());
-
         redisTemplate.opsForHash().put(session.getId(), "userId", username);
         redisTemplate.opsForHash().put(session.getId(), "authority", authority);
         redisTemplate.boundHashOps(session.getId()).expire(THREE_DAYS_AT_SECONDS, TimeUnit.SECONDS);
 
+        session.setMaxInactiveInterval(THREE_DAYS_AT_SECONDS.intValue());
         session.setAttribute("userId", username);
         session.setAttribute("authority", authority);
     }
