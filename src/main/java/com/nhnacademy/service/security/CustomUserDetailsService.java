@@ -1,7 +1,6 @@
 package com.nhnacademy.service.security;
 
 import com.nhnacademy.dto.resident.ResidentUserDetails;
-import com.nhnacademy.exceptions.UserNotFoundException;
 import com.nhnacademy.repository.resident.ResidentRepository;
 import java.util.Collections;
 import org.springframework.security.core.GrantedAuthority;
