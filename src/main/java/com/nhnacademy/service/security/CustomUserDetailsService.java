@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ResidentUserDetails userDetails = residentRepository.findUserDetailsByUsername(username)
-            .orElseThrow(() -> new UserNotFoundException("유저 정보가 없습니다."));
+            .orElseThrow(() -> new UsernameNotFoundException("유저 정보가 없습니다."));
 
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_MEMBER");
         return new User(userDetails.getUserId(), userDetails.getPassword(), Collections.singleton(authority));
